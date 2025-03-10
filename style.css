@@ -502,6 +502,9 @@ input {
     /* Handle safe area insets for notched iPhones */
     padding: env(safe-area-inset-top) env(safe-area-inset-right)
       env(safe-area-inset-bottom) env(safe-area-inset-left);
+    /* Set height to actual viewport height */
+    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
   }
 
   .app-container {
@@ -509,9 +512,17 @@ input {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    /* Add padding for safe areas */
-    padding-left: max(20px, env(safe-area-inset-left));
-    padding-right: max(20px, env(safe-area-inset-right));
+    /* Fit height within viewport */
+    height: calc(
+      100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    );
+    min-height: -webkit-fill-available;
+    overflow-y: auto;
+    /* Keep container from being too tall */
+    max-height: -webkit-fill-available;
+    /* Better center alignment */
+    justify-content: flex-start;
+    padding-top: 10px;
   }
 
   .container {
@@ -521,14 +532,24 @@ input {
     /* Prevent flickering during animations */
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    /* Compact containers on iOS */
+    padding: 12px;
+    /* Allow container to scroll if needed */
+    max-height: calc(
+      85vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    );
+    overflow-y: auto;
   }
 
+  /* Ensure inputs remain usable */
   input[type="text"] {
     /* Fix input appearance on iOS */
     -webkit-appearance: none;
     appearance: none;
     /* Prevent zoom on focus */
     font-size: 16px;
+    /* Smaller on iOS */
+    padding: 6px 8px;
   }
 
   button {
@@ -538,7 +559,7 @@ input {
     -webkit-touch-callout: none;
   }
 
-  /* Fix calculator display for iPhone notch */
+  /* More compact layout for iPhone */
   @media screen and (max-width: 430px) {
     body {
       padding-top: max(10px, env(safe-area-inset-top));
@@ -546,10 +567,30 @@ input {
 
     .app-container {
       padding-bottom: env(safe-area-inset-bottom);
+      gap: 10px; /* Smaller gap between elements */
     }
 
     .calculator-container {
       margin-bottom: 10px;
+    }
+
+    /* Make content more compact */
+    h1 {
+      font-size: 1.5rem;
+      margin: 10px 0;
+    }
+
+    .input-group {
+      margin-bottom: 8px;
+    }
+
+    .equal {
+      margin: 5px 0;
+    }
+
+    /* Ensure calculator buttons fit */
+    .calculator-buttons {
+      gap: 5px;
     }
   }
 }
