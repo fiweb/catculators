@@ -62,7 +62,7 @@ body {
   gap: 20px;
   flex-wrap: wrap;
   max-width: 1200px;
-  max-width: 90%;
+  width: 100%;
 }
 
 .container {
@@ -386,15 +386,25 @@ button#reset {
 @media (max-width: 768px) {
   .app-container {
     flex-direction: column;
-    align-items: center;
+    gap: 10px;
+    width: 95%; /* Use more screen width on mobile */
+    max-width: 100%;
   }
 
   .proportion-container,
   .calculator-container {
-    width: 90%;
-    max-width: -webkit-fill-available;
+    width: 100%; /* Full width containers on mobile */
+    min-width: unset;
+    max-width: unset;
+    padding: 15px;
   }
 
+  .container {
+    box-sizing: border-box; /* Include padding in width calculation */
+    padding: 15px; /* Slightly less padding on mobile */
+  }
+
+  /* Calculator toggle functionality for mobile */
   .calculator-toggle {
     display: block; /* Show toggle on mobile */
   }
@@ -405,7 +415,7 @@ button#reset {
 
   .calculator-container.active {
     display: block; /* Show calculator when active class is added */
-    margin-top: 20px;
+    margin-top: 15px;
     animation: fadeIn 0.3s ease-in-out;
   }
 
@@ -418,6 +428,26 @@ button#reset {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  /* Adjust font and input sizes for better mobile experience */
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  input[type="text"] {
+    font-size: 16px; /* Minimum 16px to prevent iOS zoom on focus */
+    padding: 8px;
+  }
+
+  .calc-btn {
+    padding: 12px 0; /* Slightly smaller buttons */
+  }
+
+  /* Adjust cat icon size for mobile */
+  .cat-sleeping-icon {
+    width: 3rem;
+    height: 3rem;
   }
 }
 
